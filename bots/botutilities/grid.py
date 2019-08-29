@@ -58,3 +58,126 @@ class Grid(Generic[T]):
     def print(self):
         for row in reversed(self.__grid):
             print(row)
+
+    def check_horizontal_group_at(self, bot_id: int, x: int, y: int) -> int:
+        assert (0 <= x < self.width)
+        if self.at(x, y) != bot_id:
+            return 0
+        result = 1
+        current_x = x
+        # go right
+        while True:
+            if current_x >= self.width - 1:
+                break
+            current_x += 1
+            if self.at(current_x, y) == bot_id:
+                result += 1
+            else:
+                break
+        current_x = x
+        while True:
+            if current_x <= 0:
+                break
+            current_x -= 1
+            if self.at(current_x, y) == bot_id:
+                result += 1
+            else:
+                break
+        return result
+
+    def check_vertical_group_at(self, bot_id: int, x: int, y: int) -> int:
+        assert 0 <= y < self.height
+        if self.at(x, y) != bot_id:
+            return 0
+        result = 1
+        current_y = y
+
+        while True:
+            if current_y >= self.height - 1:
+                break
+            current_y += 1
+            if self.at(x, current_y) == bot_id:
+                result += 1
+            else:
+                break
+
+        current_y = y
+        while True:
+            if current_y <= 0:
+                break
+            current_y -= 1
+            if self.at(x, current_y) == bot_id:
+                result += 1
+            else:
+                break
+
+        return result
+
+    def check_forward_diagonal_group_at(self, bot_id: int, x: int, y: int) -> int:
+        assert 0 <= x < self.width
+        assert 0 <= y < self.height
+
+        if self.at(x, y) != bot_id:
+            return 0
+        result = 1
+        current_x = x
+        current_y = y
+        while True:
+            if current_y >= self.height - 1 or current_x >= self.width - 1:
+                break
+            current_x += 1
+            current_y += 1
+            if self.at(current_x, current_y) == bot_id:
+                result += 1
+            else:
+                break
+
+        current_x = x
+        current_y = y
+
+        while True:
+            if current_x <= 0 or current_y <= 0:
+                break
+            current_x -= 1
+            current_y -= 1
+            if self.at(current_x, current_y) == bot_id:
+                result += 1
+            else:
+                break
+
+        return result
+
+    def check_backward_diagonal_group_at(self, bot_id: int, x: int, y: int) -> int:
+        assert 0 <= x < self.width
+        assert 0 <= y < self.height
+
+        if self.at(x, y) != bot_id:
+            return 0
+
+        result = 1
+        current_x = x
+        current_y = y
+
+        while True:
+            if current_y >= self.height - 1 or current_x <= 0:
+                break
+            current_x -= 1
+            current_y += 1
+            if self.at(current_x, current_y) == bot_id:
+                result += 1
+            else:
+                break
+
+        current_y = y
+        current_x = x
+
+        while True:
+            if current_y <= 0 or current_x >= self.width - 1:
+                break
+            current_x += 1
+            current_y -= 1
+            if self.at(current_x, current_y) == bot_id:
+                result += 1
+            else:
+                break
+        return result
