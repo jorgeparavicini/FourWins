@@ -92,7 +92,7 @@ class BaseBot(ABC):
         :param new_grid: The new grid in integer representation, as given by the Tournament Manager.
         """
         # Map the new list to Cell States
-        self.__grid = new_grid.map(self.__cell_state_from_id)
+        self.__grid = new_grid.map(self.__convert_id_to_cell_state)
 
     @abstractmethod
     def get_guess(self) -> int:
@@ -120,7 +120,7 @@ class BaseBot(ABC):
         """
         return self.grid.at(x, y)
 
-    def __cell_state_from_id(self, n: int) -> CellState:
+    def __convert_id_to_cell_state(self, n: int) -> CellState:
         """
         This is an internal function that converts an integer passed from the Tournament Managers grid
         to a CellState.

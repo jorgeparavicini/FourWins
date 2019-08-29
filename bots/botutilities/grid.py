@@ -1,8 +1,15 @@
 from __future__ import annotations
+
 from typing import TypeVar, List, Generic, Callable
-import warnings
 
 T = TypeVar('T')
+""" 
+GRID LAYOUT
+
+(0,2) (1,2) (2,2)
+(0,1) (1,1) (2,1)
+(0,0) (1,0) (2,0)
+"""
 
 
 class Grid(Generic[T]):
@@ -12,7 +19,7 @@ class Grid(Generic[T]):
             self.__width = len(grid[0])
             self.__height = len(grid)
         else:
-            warnings.warn("Grid has invalid size.")
+            print('\033[93m' + "Grid has invalid size." + '\033[0m')
             
     @property
     def width(self):
