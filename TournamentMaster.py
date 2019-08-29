@@ -33,4 +33,13 @@ class TournamentMaster:
         return True
 
     def set_chip_at(self, column: int, bot_id: int):
-        pass
+        self.set_chip(self.current_turns_bot().id, self.get_highest_chip_for_column(column), column)
+
+    def set_chip(self, bot_id: int, column: int, row: int):
+        self.grid.set_at(row, column, bot_id)
+
+    def get_highest_chip_for_column(self, column: int) -> int:
+        for i, value in self.grid.column(column):
+            if value is not 0:
+                return i
+        return self.grid.height
