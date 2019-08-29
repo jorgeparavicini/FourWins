@@ -1,6 +1,6 @@
 import random
 
-from bots.basebot import BaseBot, CellState
+from . import BaseBot, CellState
 
 
 class DummyBot(BaseBot):

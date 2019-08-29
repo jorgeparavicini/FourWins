@@ -1,1 +1,1 @@
-from .basebot import BaseBot
+from .basebot import BaseBot, CellState

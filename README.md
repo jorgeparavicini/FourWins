@@ -38,4 +38,53 @@ Nun könnt ihr das Grundprojekt Clonen und sobald es Fertig ist, könnt ihr es a
 
 ## Wie kann ich denn endlich den Bot schreiben?
 
-Wenn Ihr das Projekt Korrekt Geclont habt
+Wenn Ihr das Projekt Korrekt Geclont habt sollte eure Ordnerstruktur ungefähr so aussehen:
+
+![Ordner Struktur](https://raw.githubusercontent.com/jorgeparavicini/FourWins/master/images/Folder%20Structure.png)
+
+Um einen neuen Bot zu schreiben müsst ihr eine neue Python Datei unter dem Ordner "bots" erstellen.
+Dies Könnt ihr tun indem ihr auf den Ordenr rechtsklicken und "Neu > Python Datei" wählen. 
+Gebt einen Namen ein der euren Bot passt und öffnet die Datei. Nun können wir anfangen den bot zu schreiben.
+
+Damit der Turnier Manager euren Bot finden kann, **muss** er eine Unterklass des `BaseBot` sein.
+Ihr tut das indem ihr eine neue Klasse definiert:
+
+```python
+class BotName(BaseBot):
+    ...
+```
+
+Nun habt ihr gesagt, dass wir ein neuer Bot haben wollen, der alles übernimmt was im `BaseBot` schon existiert.
+Dies müsst ihr übernehmen sonst kann der Turnier Manager nicht mit eurem Bot kommunizieren, plus hat es viele nützliche funktionen die euch helfen kann.
+
+Damit eurer Bot überhaupt versteht müsst ihr die Datei wo der BaseBot geschrieben ist importieren.
+Dies tut ihr indem ihr die volgende zeile am Anfang eurer Bot Datei hinschreibt:
+
+```python
+from . import BaseBot, CellState
+```
+
+Damit Importiert ihr die Klasse `BaseBot` und `CellState` welche euch helfen kann zu identfizieren,
+wem eine Zelle gehört.
+
+### Wie gehts weiter?
+
+Nun habt ihr das basische erledigt und könnt anfangen euren eigenen Code zu schreiben.
+Es gibt eine funktion die ihr müsst implementieren, dies heist `get_guess` und muss eine ganze Nummer zurückgeben.
+Damit wird der TurnierManager euch fragen in welcher Zeile ihr euren Chip hintun werdet.
+
+Doch passt auf, falls eure Antwort invalid ist, wird er ignoriert und der gegnerische Bot ist wieder daran.
+Es gibt 2 Möglichkeiten wie ihr ein Invaliden Entscheid treffen könnt.
+- Der Entscheid ist ausserhalb des Spielfeldes, das Spielfeld geht von 0 - `grid.width - 1`
+das "-1" ist wichtig da das Feld bei 0 anfängt.
+- Der Entscheid ist in einer voller Zeile. Man kann natürlich nicht ein Chip reintun wo die Zeile schon voll ist.
+
+Wenn ihr das beachtet könnt ihr in eurer Bot class die volgende Funktion implementiere:
+
+```python
+def get_guess(self) -> int:
+    ...
+```
+
+Sobald diese Funktion eingerichtet ist könntet ihr eurer Bot einsetzen
+
