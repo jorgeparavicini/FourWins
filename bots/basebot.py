@@ -48,14 +48,14 @@ class BaseBot(ABC):
     # Change this variable in your bot class, to give your bot a cool name.
     name = "Base Bot"
 
-    def __init__(self, bot_id: int, grid: Grid[int]):
+    def __init__(self, bot_id: int):
         """
         Create a new Bot from an id, and a grid created by the Tournament Manager.
         :param bot_id: The id of this bot - see the id property for further details
         :param grid: The grid of this game - see the grid property for further details
         """
         self.__id = bot_id
-        self.__grid = grid.map(self.__cell_state_from_id)
+        self.__grid = None
 
     @property
     def id(self):

@@ -1,5 +1,6 @@
 from bots import BaseBot
 from bots.botutilities import Grid
+from warnings import warn
 
 
 class TournamentMaster:
@@ -23,23 +24,26 @@ class TournamentMaster:
     def play_turn(self):
         bot = self.current_turns_bot()
         bot.update_grid(self.grid)
+        # Implement safe switch so they cant enter infinite loop
         decision = bot.get_guess()
         if self.validate_guess(decision):
-            self.set_chip_at(decision, bot.id)
+            self.set_chip_at(decision)
+        else:
+            print("INVALID GUESS")
 
         self.turn += 1
 
     def validate_guess(self, guess: int) -> bool:
-        return True
+        return not self.grid.is_column_full(guess)
 
-    def set_chip_at(self, column: int, bot_id: int):
+    def set_chip_at(self, column: int):
         self.set_chip(self.current_turns_bot().id, self.get_highest_chip_for_column(column), column)
 
     def set_chip(self, bot_id: int, column: int, row: int):
         self.grid.set_at(row, column, bot_id)
 
     def get_highest_chip_for_column(self, column: int) -> int:
-        for i, value in self.grid.column(column):
-            if value is not 0:
-                return i
+        for i, value in enumerate(self.grid.column(column)):
+            if value is 0:
+                return min(i, self.grid.height)
         return self.grid.height

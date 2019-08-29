@@ -45,6 +45,9 @@ class Grid(Generic[T]):
     def column(self, at: int) -> List[T]:
         return [row[at] for row in self.__grid]
 
+    def is_column_full(self, column: int) -> bool:
+        return self.column(column)[-1] is not 0
+
     def print(self):
-        for row in self.__grid:
+        for row in reversed(self.__grid):
             print(row)
