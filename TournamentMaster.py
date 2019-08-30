@@ -13,7 +13,7 @@ class TournamentMaster:
 
     def current_turns_bot(self):
         """
-        Selects which bot's turn it is. Can be overriden for different starting techniques or multiple turns in a row.
+        Selects which bot's turn it is. Can be overridden for different starting techniques or multiple turns in a row.
         :return: The bot which gets the next turn.
         """
         if self.turn % 2 == 0:
@@ -26,7 +26,6 @@ class TournamentMaster:
         bot.update_grid(self.grid)
         # Implement safe switch so they cant enter infinite loop
         decision = bot.get_guess()
-        row = 0
         if self.validate_guess(decision):
             row = self.get_row_for_first_empty_cell_in_column(decision)
             self.set_chip(bot.id, decision, row)
@@ -73,3 +72,23 @@ class TournamentMaster:
         if max_group >= self.win_condition:
             return True
         return False
+
+    def play(self):
+        while True:
+            current_bot = self.current_turns_bot()
+            placed_location = self.play_turn()
+
+            self.on_turn_end(current_bot)
+
+            # Check for winner
+            if placed_location is None:
+                continue
+            if self.check_if_bot_won_at(current_bot.id, placed_location[0], placed_location[1]):
+                self.on_winner_found(current_bot)
+                break
+
+    def on_turn_end(self, bot_played: BaseBot):
+        pass
+
+    def on_winner_found(self, winner_bot: BaseBot):
+        pass
