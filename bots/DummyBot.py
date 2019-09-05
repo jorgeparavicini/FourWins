@@ -4,6 +4,8 @@ from . import BaseBot, CellState
 
 
 class DummyBot(BaseBot):
+    name = "Dummy Bot"
+
     def get_guess(self) -> int:
         while True:
             choice = random.randint(0, 6)

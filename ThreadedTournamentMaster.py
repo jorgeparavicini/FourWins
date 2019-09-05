@@ -10,10 +10,12 @@ class ThreadedTournamentMaster(QThread, TournamentMaster):
         super(TournamentMaster, self).__init__(bot_1, bot_2, grid_width, grid_height)
 
     def __del__(self):
-        self.wait()
+        # self.wait()
+        pass
 
     def run(self) -> None:
         while True:
+            pass
 
     def play(self):
         pass

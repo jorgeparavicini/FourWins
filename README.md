@@ -79,7 +79,7 @@ Es gibt 2 Möglichkeiten wie ihr ein Invaliden Entscheid treffen könnt.
 das "-1" ist wichtig da das Feld bei 0 anfängt.
 - Der Entscheid ist in einer voller Zeile. Man kann natürlich nicht ein Chip reintun wo die Zeile schon voll ist.
 
-Wenn ihr das beachtet könnt ihr in eurer Bot class die volgende Funktion implementiere:
+Wenn ihr das beachtet könnt ihr in eurer Bot class die volgende Funktion implementieren:
 
 ```python
 def get_guess(self) -> int:

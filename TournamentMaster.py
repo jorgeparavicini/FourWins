@@ -1,3 +1,5 @@
+from time import sleep
+
 from bots import BaseBot
 from bots.botutilities import Grid
 
@@ -5,11 +7,13 @@ from bots.botutilities import Grid
 class TournamentMaster:
     win_condition = 4
 
-    def __init__(self, bot_1: BaseBot, bot_2: BaseBot, grid_width: int, grid_height: int):
+    def __init__(self, bot_1: BaseBot, bot_2: BaseBot, grid_width: int, grid_height: int,
+                 time_between_rounds: float = 0):
         self.bot_1 = bot_1
         self.bot_2 = bot_2
         self.turn = 0
         self.grid = Grid.create(grid_width, grid_height)
+        self.time_between_rounds = time_between_rounds
 
     def current_turns_bot(self):
         """
@@ -86,6 +90,8 @@ class TournamentMaster:
             if self.check_if_bot_won_at(current_bot.id, placed_location[0], placed_location[1]):
                 self.on_winner_found(current_bot)
                 break
+
+            sleep(self.time_between_rounds)
 
     def on_turn_end(self, bot_played: BaseBot):
         pass
