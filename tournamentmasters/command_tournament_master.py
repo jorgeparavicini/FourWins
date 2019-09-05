@@ -1,5 +1,5 @@
-from TournamentMaster import TournamentMaster
 from bots import BaseBot
+from tournamentmasters.tournament_master import TournamentMaster
 
 
 class CommandTournamentMaster(TournamentMaster):

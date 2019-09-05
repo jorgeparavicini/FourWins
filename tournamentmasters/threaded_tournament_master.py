@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QThread
 
-from TournamentMaster import TournamentMaster
 from bots import BaseBot
+from tournamentmasters.tournament_master import TournamentMaster
 
 
 class ThreadedTournamentMaster(QThread, TournamentMaster):

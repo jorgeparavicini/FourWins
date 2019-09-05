@@ -1,9 +1,9 @@
 import argparse
 import sys
 
-from CommandTournamentMaster import CommandTournamentMaster
 from bots import bot_manager
 from interface.mainwindow import MainWindow
+from tournamentmasters.command_tournament_master import CommandTournamentMaster
 
 
 def get_args() -> argparse.Namespace:
@@ -39,13 +39,7 @@ if __name__ == '__main__':
         exit(-1)
 
     if parser.gui:
-        MainWindow(bot_1, bot_2, parser.width, parser.height, parser.time)
+        MainWindow(bot_1(1), bot_2(2), parser.width, parser.height, parser.time)
     else:
         tournament = CommandTournamentMaster(bot_1(1), bot_2(2), parser.width, parser.height, parser.time)
         tournament.play()
-
-    '''bot_1 = DummyBot(1)
-    bot_2 = DummyBot(3)
-    master = FourWinsApp(bot_1, bot_2, 7, 7)
-    '''
-    # master = CommandTournamentMaster(bot_1, bot_2, 7, 7)
