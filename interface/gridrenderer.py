@@ -1,8 +1,8 @@
 from typing import Callable
 
 from PyQt5.QtCore import QPointF, Qt
-from PyQt5.QtGui import QPaintEvent, QPainter, QColor
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtGui import QPaintEvent, QPainter, QColor, QResizeEvent
+from PyQt5.QtWidgets import QWidget, QSizePolicy
 
 from bots.botutilities import Grid
 
@@ -14,8 +14,19 @@ class GridRenderer(QWidget):
     def __init__(self, grid: Grid,
                  color_for_bot: Callable[[int], QColor] = lambda a: QColor(255, 0, 0) if a == 1 else QColor(0, 255, 0)):
         super().__init__()
+        policy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        policy.setHeightForWidth(True)
+        self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+
         self.grid = grid
         self.color_for_bot = color_for_bot
+
+    def heightForWidth(self, width: int) -> int:
+        print(width)
+        return width
+
+    def resizeEvent(self, a0: QResizeEvent) -> None:
+        self.setMinimumWidth(self.height())
 
     def paintEvent(self, a0: QPaintEvent) -> None:
         qp = QPainter()
@@ -37,7 +48,6 @@ class GridRenderer(QWidget):
             qp.drawLine(0, height, self.width(), height)
 
     def draw_cells(self, qp: QPainter):
-        self.grid.print()
         for column in range(self.grid.width):
             for row in range(self.grid.height):
                 bot_id = self.grid.at(column, row)

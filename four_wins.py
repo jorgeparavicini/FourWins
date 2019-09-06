@@ -1,6 +1,8 @@
 import argparse
 import sys
 
+from PyQt5.QtWidgets import QApplication
+
 from bots import bot_manager
 from interface.mainwindow import MainWindow
 from tournamentmasters.command_tournament_master import CommandTournamentMaster
@@ -39,7 +41,10 @@ if __name__ == '__main__':
         exit(-1)
 
     if parser.gui:
-        MainWindow(bot_1(1), bot_2(2), parser.width, parser.height, parser.time)
+        app = QApplication(sys.argv)
+        window = MainWindow(bot_1(1), bot_2(2), parser.width, parser.height, parser.time)
+        window.show()
+        exit(app.exec())
     else:
         tournament = CommandTournamentMaster(bot_1(1), bot_2(2), parser.width, parser.height, parser.time)
-        tournament.play()
+        exit(tournament.play())

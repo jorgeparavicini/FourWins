@@ -1,3 +1,2 @@
 from .command_tournament_master import CommandTournamentMaster
-from .threaded_tournament_master import ThreadedTournamentMaster
 from .tournament_master import TournamentMaster

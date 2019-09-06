@@ -1,4 +1,5 @@
 from time import sleep
+from typing import List, Callable
 
 from bots import BaseBot
 from bots.botutilities import Grid
@@ -15,6 +16,9 @@ class TournamentMaster:
         self.grid = Grid.create(grid_width, grid_height)
         self.time_between_rounds = time_between_rounds
 
+        self.on_turn_end_cb: List[Callable[[BaseBot], None]] = []
+        self.on_winner_found_cb: List[Callable[[BaseBot], None]] = []
+
     def current_turns_bot(self):
         """
         Selects which bot's turn it is. Can be overridden for different starting techniques or multiple turns in a row.
@@ -28,7 +32,7 @@ class TournamentMaster:
     def play_turn(self) -> (int, int):
         bot = self.current_turns_bot()
         bot.update_grid(self.grid)
-        # Implement safe switch so they cant enter infinite loop
+
         decision = bot.get_guess()
         if self.validate_guess(decision):
             row = self.get_row_for_first_empty_cell_in_column(decision)
@@ -67,11 +71,7 @@ class TournamentMaster:
         vertical = self.grid.check_vertical_group_at(bot_id, x, y)
         diagonal_forward = self.grid.check_forward_diagonal_group_at(bot_id, x, y)
         diagonal_backward = self.grid.check_backward_diagonal_group_at(bot_id, x, y)
-        """print(f'Horizontal: {horizontal} \n'
-              f'Vertical:   {vertical} \n'
-              f'Dia Back:   {diagonal_backward} \n'
-              f'Dia For:    {diagonal_forward} \n')
-"""
+
         max_group = max(horizontal, vertical, diagonal_forward, diagonal_backward)
         if max_group >= self.win_condition:
             return True
@@ -94,7 +94,9 @@ class TournamentMaster:
             sleep(self.time_between_rounds)
 
     def on_turn_end(self, bot_played: BaseBot):
-        pass
+        for c in self.on_turn_end_cb:
+            c(bot_played)
 
     def on_winner_found(self, winner_bot: BaseBot):
-        pass
+        for c in self.on_winner_found_cb:
+            c(winner_bot)
