@@ -14,16 +14,10 @@ class GridRenderer(QWidget):
     def __init__(self, grid: Grid,
                  color_for_bot: Callable[[int], QColor] = lambda a: QColor(255, 0, 0) if a == 1 else QColor(0, 255, 0)):
         super().__init__()
-        policy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        policy.setHeightForWidth(True)
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
 
         self.grid = grid
         self.color_for_bot = color_for_bot
-
-    def heightForWidth(self, width: int) -> int:
-        print(width)
-        return width
 
     def resizeEvent(self, a0: QResizeEvent) -> None:
         self.setMinimumWidth(self.height())
