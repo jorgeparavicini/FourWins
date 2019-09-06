@@ -39,12 +39,16 @@ class GridRenderer(QWidget):
         self.draw_cells(qp)
 
     def draw_grid(self, qp: QPainter):
-        for i in range(self.grid.width - 1):
-            width = (i + 1) * self.width() / self.grid.width
+        for i in range(self.grid.width + 1):
+            # If we draw the last line at the max width, it will be drawn outside of the window.
+            # Therefore move all widths half a pixel to the left
+            width = i * self.width() / self.grid.width - 0.5
             qp.drawLine(width, 0, width, self.height())
 
-        for i in range(self.grid.height - 1):
-            height = (i + 1) * self.height() / self.grid.height
+        for i in range(self.grid.height + 1):
+            # If we draw the last line at the max width, it will be drawn outside of the window.
+            # Therefore move all widths half a pixel to the top
+            height = i * self.height() / self.grid.height - 0.5
             qp.drawLine(0, height, self.width(), height)
 
     def draw_cells(self, qp: QPainter):
