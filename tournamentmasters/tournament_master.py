@@ -13,6 +13,9 @@ class TournamentMaster:
         self.bot_1 = bot_1
         self.bot_2 = bot_2
         self.turn = 0
+        self.is_initialized = False
+        self.did_stop = False
+        self.is_paused = False
         self.grid = Grid.create(grid_width, grid_height)
         self.time_between_rounds = time_between_rounds
 
@@ -78,7 +81,14 @@ class TournamentMaster:
         return False
 
     def play(self):
-        while True:
+        if self.is_initialized:
+            print("GAME ALREADY INITIALIZED, create a new tournament.")
+        self.is_initialized = True
+        while not self.did_stop:
+            if self.is_paused:
+                sleep(self.time_between_rounds)
+                continue
+
             current_bot = self.current_turns_bot()
             placed_location = self.play_turn()
 
@@ -92,6 +102,8 @@ class TournamentMaster:
                 break
 
             sleep(self.time_between_rounds)
+
+        self.did_stop = True
 
     def on_turn_end(self, bot_played: BaseBot):
         for c in self.on_turn_end_cb:
