@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QHBoxLayout, QLabel, QMessageBox, QGroupBox
-from PyQt5.QtWidgets import QComboBox, QLineEdit
+from PyQt5.QtWidgets import QComboBox, QLineEdit, QSlider
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
+from PyQt5.QtCore import Qt
 
 from bots import BaseBot, DummyBot, bot_manager
 from bots.botutilities import Grid
@@ -44,11 +45,14 @@ class MainWindow(QMainWindow):
         height_box.addWidget(self.grid_height)
 
         speed_box = QHBoxLayout()
-        speed_label = QLabel("Speed: ")
-        self.speed = QLineEdit("1.0")
-        self.speed.setValidator(QDoubleValidator(0.0, 100.0, 2))
-        self.speed.textChanged.connect(self.speed_changed)
-        speed_box.addWidget(speed_label)
+        self.speed_label = QLabel("Speed: 1")
+        self.speed_label.setFixedWidth(60)
+        self.speed = QSlider(Qt.Horizontal)
+        self.speed.setMinimum(0)
+        self.speed.setMaximum(1000)
+        self.speed.setValue(100)
+        self.speed.valueChanged.connect(self.speed_changed)
+        speed_box.addWidget(self.speed_label)
         speed_box.addWidget(self.speed)
 
         create_new_btn = QPushButton("Creat new Game")
@@ -79,6 +83,7 @@ class MainWindow(QMainWindow):
 
         self.button = QPushButton("Start Game")
         self.button.pressed.connect(self.toggle_play)
+        self.button.setDisabled(True)
         current_game_layout.addWidget(self.button)
 
         current_game_layout.addStretch()
@@ -104,7 +109,8 @@ class MainWindow(QMainWindow):
     def create_tournament_master(self) -> TournamentThread:
         return TournamentThread(bot_manager.get_bot_with_name(self.bot_1_cb.currentText())(1),
                                 bot_manager.get_bot_with_name(self.bot_2_cb.currentText())(2),
-                                int(self.grid_width.text()), int(self.grid_height.text()), float(self.speed.text()))
+                                int(self.grid_width.text()), int(self.grid_height.text()),
+                                float(self.speed.value() / 100.0))
 
     def set_new_tournament_master(self, master: TournamentThread):
         self.tournament = master
@@ -155,9 +161,7 @@ class MainWindow(QMainWindow):
             self.button.setText("Pause!")
 
     def speed_changed(self, val):
-        if self.tournament:
-            try:
-                f = float(val)
-            except:
-                return
-            self.tournament.tournament_master.time_between_rounds = f
+        self.speed_label.setText(f"Speed: {val / 100.0} - ")
+        if self.tournament is not None:
+            self.tournament.tournament_master.time_between_rounds = val / 100.0
+
