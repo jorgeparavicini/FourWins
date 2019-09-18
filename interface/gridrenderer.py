@@ -33,6 +33,8 @@ class GridRenderer(QWidget):
         self.draw_cells(qp)
 
     def draw_grid(self, qp: QPainter):
+        if self.grid is None or self.grid.width == 0 or self.grid.height == 0:
+            return
         for i in range(self.grid.width + 1):
             # If we draw the last line at the max width, it will be drawn outside of the window.
             # Therefore move all widths half a pixel to the left

@@ -13,14 +13,20 @@ GRID LAYOUT
 
 
 class Grid(Generic[T]):
+
     def __init__(self, grid: List[List[T]]):
         self.__grid = grid
         if len(grid) > 0 and len(grid[0]) > 0:
             self.__width = len(grid[0])
             self.__height = len(grid)
         else:
-            print('\033[93m' + "Grid has invalid size." + '\033[0m')
-            
+            self.__width = 0
+            self.__height = 0
+
+    @staticmethod
+    def empty():
+        return Grid(grid=[])
+
     @property
     def width(self):
         return self.__width

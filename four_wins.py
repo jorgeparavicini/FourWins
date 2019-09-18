@@ -42,7 +42,8 @@ if __name__ == '__main__':
 
     if parser.gui:
         app = QApplication(sys.argv)
-        window = MainWindow(bot_1(1), bot_2(2), parser.width, parser.height, parser.time)
+        window = MainWindow()
+        window.resize(400, 600)
         window.show()
         exit(app.exec())
     else:
