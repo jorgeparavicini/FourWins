@@ -49,7 +49,7 @@ class MainWindow(QMainWindow):
         self.speed_label.setFixedWidth(60)
         self.speed = QSlider(Qt.Horizontal)
         self.speed.setMinimum(0)
-        self.speed.setMaximum(1000)
+        self.speed.setMaximum(250)
         self.speed.setValue(100)
         self.speed.valueChanged.connect(self.speed_changed)
         speed_box.addWidget(self.speed_label)
@@ -78,7 +78,7 @@ class MainWindow(QMainWindow):
         current_game_layout.addWidget(self.bot_1_label)
 
         self.bot_2_label = QLabel(f"Bot 2: {self.bot_2_cb.currentText()}, {self.bot_2_cb.currentText()}")
-        self.bot_2_label.setStyleSheet("background-color:#ff00ff")
+        self.bot_2_label.setStyleSheet("background-color:#ff0000")
         current_game_layout.addWidget(self.bot_2_label)
 
         self.button = QPushButton("Start Game")
