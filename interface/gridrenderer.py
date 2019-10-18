@@ -9,15 +9,14 @@ from bots.botutilities import Grid
 
 class GridRenderer(QWidget):
     bot_1_color = QColor(255, 0, 0)
-    bot_2_color = QColor(0, 0, 255)
+    bot_2_color = QColor(0, 255, 0)
 
-    def __init__(self, grid: Grid,
-                 color_for_bot: Callable[[int], QColor] = lambda a: QColor(255, 0, 0) if a == 1 else QColor(0, 255, 0)):
+    def __init__(self, grid: Grid):
         super().__init__()
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
 
         self.grid = grid
-        self.color_for_bot = color_for_bot
+        self.color_for_bot = lambda a: GridRenderer.bot_1_color if a == 1 else GridRenderer.bot_2_color
 
     def resizeEvent(self, a0: QResizeEvent) -> None:
         self.setMinimumWidth(self.height())

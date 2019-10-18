@@ -74,11 +74,11 @@ class MainWindow(QMainWindow):
         current_game_layout.addWidget(self.turn_label)
 
         self.bot_1_label = QLabel(f"Bot 1: {self.bot_1_cb.currentText()}, {self.bot_1_cb.currentText()}")
-        self.bot_1_label.setStyleSheet("background-color:#00ff00;")
+        self.bot_1_label.setStyleSheet("background-color:#ff0000;")
         current_game_layout.addWidget(self.bot_1_label)
 
         self.bot_2_label = QLabel(f"Bot 2: {self.bot_2_cb.currentText()}, {self.bot_2_cb.currentText()}")
-        self.bot_2_label.setStyleSheet("background-color:#ff0000")
+        self.bot_2_label.setStyleSheet("background-color:#00ff00")
         current_game_layout.addWidget(self.bot_2_label)
 
         self.button = QPushButton("Start Game")
