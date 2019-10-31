@@ -26,7 +26,7 @@ Ich erkläre euch hier wie man das mit PyCharm machen kann,
  
 Zuerst solltet ihr PyCharm von Jetbrains installieren falls ihr noch keine anderen Tools habt. 
 Dann schliesst alle Projekte falls ihr schon eins offen hattet 
-und ihr solltet dann die Möglichkeit haben, ein Projekt zu von Version Control zu holen..
+und ihr solltet dann die Möglichkeit haben, ein Projekt von Version Control zu holen..
 
 ![Projekt Clonen](https://raw.githubusercontent.com/jorgeparavicini/FourWins/master/images/Jetbrains%20Clone.png)
 
@@ -53,9 +53,17 @@ Ihr tut das indem ihr eine neue Klasse definiert:
 class BotName(BaseBot):
     ...
 ```
+Der Name `BaseBot` könnt ihr beliebig ändern auf was ihr wollt.  
+
+Um euren Bot einen Namen zu geben setzt unterhalb der oben genannter Zeile die folgende Zeile ein:
+
+```python
+name = "<Euer Bot Name>"
+```
+wobei `<Euer Bot Name>` der name euer Botes ist.
 
 Nun habt ihr gesagt, dass wir ein neuer Bot haben wollen, der alles übernimmt was im `BaseBot` schon existiert.
-Dies müsst ihr übernehmen sonst kann der Turnier Manager nicht mit eurem Bot kommunizieren, plus hat es viele nützliche funktionen die euch helfen kann.
+Dies müsst ihr übernehmen sonst kann der Turnier Manager nicht mit eurem Bot kommunizieren, plus hat es viele nützliche funktionen die euch helfen können.
 
 Damit eurer Bot überhaupt versteht müsst ihr die Datei wo der BaseBot geschrieben ist importieren.
 Dies tut ihr indem ihr die volgende zeile am Anfang eurer Bot Datei hinschreibt:
@@ -70,14 +78,14 @@ wem eine Zelle gehört.
 ### Wie gehts weiter?
 
 Nun habt ihr das basische erledigt und könnt anfangen euren eigenen Code zu schreiben.
-Es gibt eine funktion die ihr müsst implementieren, dies heist `get_guess` und muss eine ganze Nummer zurückgeben.
+Es gibt eine funktion die ihr implementieren müsst, dies heist `get_guess` und muss eine ganze Nummer zurückgeben.
 Damit wird der TurnierManager euch fragen in welcher Zeile ihr euren Chip hintun werdet.
 
 Doch passt auf, falls eure Antwort invalid ist, wird er ignoriert und der gegnerische Bot ist wieder daran.
 Es gibt 2 Möglichkeiten wie ihr ein Invaliden Entscheid treffen könnt.
 - Der Entscheid ist ausserhalb des Spielfeldes, das Spielfeld geht von 0 - `grid.width - 1`
 das "-1" ist wichtig da das Feld bei 0 anfängt.
-- Der Entscheid ist in einer voller Zeile. Man kann natürlich nicht ein Chip reintun wo die Zeile schon voll ist.
+- Der Entscheid ist in einer voller Spalte. Man kann natürlich nicht ein Chip reintun wo die Spalte schon voll ist.
 
 Wenn ihr das beachtet könnt ihr in eurer Bot class die volgende Funktion implementieren:
 
@@ -87,4 +95,23 @@ def get_guess(self) -> int:
 ```
 
 Sobald diese Funktion eingerichtet ist könntet ihr eurer Bot einsetzen
+
+Bis jetzt sollte euer Bot so aussehen
+
+```python
+from . import BaseBot, CellState
+
+class BotName(BaseBot):
+    name = "Test Bot"
+    def get_guess(self) -> int:
+        return 0
+```
+
+das `return 0` solltet ihr nun so abändern dass es immer eine korrekte Zahl zurückgibt.
+
+## Spiel Testen
+
+Es gibt zwei Arten wie ihr das Spiel starten könnt in der Konsole oder Graphisch.
+Um das Spiel in der Konsole abzuspielen müsst Ihr Rechts Click auf die Datei `four_wins.py`
+machen und die Option `Run four_wins.py` auswählen.
 

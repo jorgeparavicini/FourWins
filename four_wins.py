@@ -1,11 +1,16 @@
 import argparse
 import sys
 
-from PyQt5.QtWidgets import QApplication
-
 from bots import bot_manager
-from interface.mainwindow import MainWindow
 from tournamentmasters.command_tournament_master import CommandTournamentMaster
+
+try:
+    from PyQt5.QtWidgets import QApplication
+    from interface.mainwindow import MainWindow
+except ImportError:
+    QApplication = None
+    MainWindow = None
+    print("Graphics Context Not Installed")
 
 
 def get_args() -> argparse.Namespace:
@@ -41,11 +46,15 @@ if __name__ == '__main__':
         exit(-1)
 
     if parser.gui:
-        app = QApplication(sys.argv)
-        window = MainWindow()
-        window.resize(400, 600)
-        window.show()
-        exit(app.exec())
+        if QApplication is None:
+            print("Can not start Graphics Program without PyQt installed. "
+                  "See the documentation for further information on how to install PyQt.")
+        else:
+            app = QApplication(sys.argv)
+            window = MainWindow()
+            window.resize(400, 600)
+            window.show()
+            exit(app.exec())
     else:
         tournament = CommandTournamentMaster(bot_1(1), bot_2(2), parser.width, parser.height, parser.time)
         exit(tournament.play())
