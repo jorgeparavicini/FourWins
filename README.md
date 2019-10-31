@@ -115,3 +115,38 @@ Es gibt zwei Arten wie ihr das Spiel starten könnt in der Konsole oder Graphisc
 Um das Spiel in der Konsole abzuspielen müsst Ihr Rechts Click auf die Datei `four_wins.py`
 machen und die Option `Run four_wins.py` auswählen.
 
+![Run four wins](https://raw.githubusercontent.com/jorgeparavicini/FourWins/master/images/Run%20Four%20wins.png)
+
+Oben Links sollte es nun ein Dropdown menu haben wo man die Argumente ändern kann. 
+Wenn du da drauf clickst un `Edit Configurations` auswählst, kannst du da die Argumente für das 
+starten des Spieles eingeben.
+
+In der `four_wins.py` kann man alle möglich Argumente sehen und was sie tun.
+Um das Spiel Grafisch zu starten sollte man das Argument `-g` mitgeben.
+
+Wenn man nicht PyCharm braucht, kann man dasselbe über die Commandline tun:
+
+`python <path_to_four_wins.py> <Argumente>`
+
+## Grafiklibrary Installieren
+
+Um das Spiel Grafisch zu spielen, muss man zusätzlich des `-g` Argument auch noch
+das Modul `PyQt5` installieren.
+Daher sollte man im PyCharm den Terminal, oder ein normales CMD aufmachen.
+Falls man eine Virtual Environment braucht, stelle sicher dass du die aktiviert hast.
+
+Stelle sicher, dass du `pip` installiert hast, ansonsten folge diesem [Link](https://github.com/BurntSushi/nfldb/wiki/Python-&-pip-Windows-installation)
+
+Nun wieder zurück in der Konsole kannst du das folgende Kommando eingeben.
+
+`pip install pyqt5`
+
+dis wird alle notwendige Module installieren die das Programm braucht um das Spiel grafisch
+darzustellen. 
+
+## Endnote
+
+Ich hoffe Ihr werdet spass haben an diesem Projekt so viel, wie ich es genossen hatte,
+dieses Projekt für euch vorzubereiten. Falls was unklar ist könnt ihr immer eure Coaches
+fragen oder sonst in GitHub ein `Issue` eröffnen. Ich werde versuchen so rasch wie
+möglich euch bei jeglichen Problemen zu unterstützen.
